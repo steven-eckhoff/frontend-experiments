@@ -10,26 +10,58 @@
         <li>1</li>
         <li>1</li>
     </ul>
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
+    <a href="#" id="prev">prev</a>
+    <span>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">7</a>
+        <a href="#">8</a>
+        <a href="#">9</a>
+        <a href="#">10</a>
+    </span>
+    <a href="#" id="next">next</a>
 </body>
 <script
         src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
 <script>
-    let searchList = $("body > ul")
-    let buttons = $("a")
+    let currentPage = 1;
+    let searchList = $("body > ul");
+    let pageButtons = $("span > a");
+    let prevButton = $("#prev");
+    let nextButton = $("#next");
 
-    buttons.on("click", function() {
-        let page = parseInt($(this).text());
+    let update = function(currentPage) {
         searchList.children().each(function() {
-            $(this).text(page);
-        })
-    })
+            $(this).text(currentPage);
+        });
+        let pageUpdate = currentPage;
+        pageButtons.each(function () {
+            $(this).text(pageUpdate++);
+        });
+        // Get results and display them.
+    };
+
+    pageButtons.on("click", function() {
+        currentPage = parseInt($(this).text());
+        update(currentPage);
+    });
+
+    prevButton.on("click", function() {
+        if (currentPage > 1) {
+            currentPage--;
+            update(currentPage);
+        }
+    });
+
+    nextButton.on("click", function () {
+        currentPage++;
+        update(currentPage);
+    });
 </script>
 </html>
