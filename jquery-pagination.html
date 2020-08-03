@@ -10,7 +10,12 @@
         <li>1</li>
         <li>1</li>
     </ul>
+    <a href="#">1</a>
     <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
 </body>
 <script
         src="https://code.jquery.com/jquery-3.5.1.js"
@@ -18,14 +23,13 @@
         crossorigin="anonymous"></script>
 <script>
     let searchList = $("body > ul")
-    let button = $("body > a")
+    let buttons = $("a")
 
-    button.on("click", function() {
-        let nextPage = parseInt(button.text());
+    buttons.on("click", function() {
+        let page = parseInt($(this).text());
         searchList.children().each(function() {
-            $(this).text(nextPage);
+            $(this).text(page);
         })
-        button.text(nextPage + 1);
     })
 </script>
 </html>
