@@ -30,38 +30,38 @@
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
 <script>
-    let currentPage = 1;
-    let searchList = $("body > ul");
-    let pageButtons = $("span > a");
-    let prevButton = $("#prev");
-    let nextButton = $("#next");
+    let currentPage = 1
+    let searchList = $("body > ul")
+    let pageButtons = $("span > a")
+    let prevButton = $("#prev")
+    let nextButton = $("#next")
 
     let update = function(currentPage) {
         searchList.children().each(function() {
-            $(this).text(currentPage);
-        });
-        let pageUpdate = currentPage;
+            $(this).text(currentPage)
+        })
+        let pageUpdate = currentPage
         pageButtons.each(function () {
-            $(this).text(pageUpdate++);
-        });
+            $(this).text(pageUpdate++)
+        })
         // Get results and display them.
-    };
+    }
 
     pageButtons.on("click", function() {
-        currentPage = parseInt($(this).text());
-        update(currentPage);
-    });
+        currentPage = parseInt($(this).text())
+        update(currentPage)
+    })
 
     prevButton.on("click", function() {
         if (currentPage > 1) {
-            currentPage--;
-            update(currentPage);
+            currentPage--
+            update(currentPage)
         }
-    });
+    })
 
     nextButton.on("click", function () {
-        currentPage++;
-        update(currentPage);
-    });
+        currentPage++
+        update(currentPage)
+    })
 </script>
 </html>
