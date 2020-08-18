@@ -12,16 +12,6 @@
     </ul>
     <a href="#" id="prev">prev</a>
     <span>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">7</a>
-        <a href="#">8</a>
-        <a href="#">9</a>
-        <a href="#">10</a>
     </span>
     <a href="#" id="next">next</a>
 </body>
@@ -31,37 +21,57 @@
         crossorigin="anonymous"></script>
 <script>
     let currentPage = 1
-    let searchList = $("body > ul")
-    let pageButtons = $("span > a")
-    let prevButton = $("#prev")
-    let nextButton = $("#next")
+    let $searchList = $("body > ul")
+    let $prevButton = $("#prev")
+    let $nextButton = $("#next")
+    let maxPages = 23
+    let maxPageButtons = 5
+
+    let pageButtonClick = function() {
+        currentPage = parseInt($(this).text())
+        update(currentPage)
+        console.log(currentPage)
+    }
 
     let update = function(currentPage) {
-        searchList.children().each(function() {
+        $searchList.children().each(function() {
             $(this).text(currentPage)
         })
-        let pageUpdate = currentPage
-        pageButtons.each(function () {
-            $(this).text(pageUpdate++)
-        })
+
+        let basePage = currentPage
+        if (basePage + maxPageButtons > maxPages) {
+            basePage = maxPages - maxPageButtons + 1
+        }
+
+        let basePageOffset = 0
+        let $newPageButtons = $()
+        while (basePageOffset < maxPageButtons) {
+            $newPageButtons = $newPageButtons.add(`<a href="#">${basePage + basePageOffset}</a>`)
+            basePageOffset++
+        }
+
+        $("span").children().remove()
+        $("span").append($newPageButtons)
+
+        $("span > a").on("click", pageButtonClick)
+
         // Get results and display them.
     }
 
-    pageButtons.on("click", function() {
-        currentPage = parseInt($(this).text())
-        update(currentPage)
-    })
+    update(currentPage)
 
-    prevButton.on("click", function() {
+    $prevButton.on("click", function() {
         if (currentPage > 1) {
             currentPage--
             update(currentPage)
         }
     })
 
-    nextButton.on("click", function () {
-        currentPage++
-        update(currentPage)
+    $nextButton.on("click", function () {
+        if (currentPage < maxPages) {
+            currentPage++
+            update(currentPage)
+        }
     })
 </script>
 </html>
